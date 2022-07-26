@@ -1,31 +1,21 @@
 package ru.cactus.currency.data.network
 
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
-import ru.cactus.currency.data.network.BaseApiResponse
-import ru.cactus.currency.data.network.RemoteDataSource
 import ru.cactus.currency.data.entity.CurrenciesRates
 import ru.cactus.currency.data.entity.SymbolsList
 import ru.cactus.currency.repository.NetworkRepository
-import ru.cactus.currency.utils.NetworkResult
 import javax.inject.Inject
 
 @ActivityRetainedScoped
 class NetworkRepositoryImpl @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val networkService: NetworkService
 ) : NetworkRepository {
-    override suspend fun getSymbols(): Flow<Response<SymbolsList>> = flow {
-        emit(remoteDataSource.getSymbols())
-    }.flowOn(Dispatchers.IO)
 
-    override suspend fun getCurrenciesRates(base: String): Flow<Response<CurrenciesRates>> = flow {
-        emit(remoteDataSource.getCurrenciesRates(base = base))
-    }.flowOn(Dispatchers.IO)
+    override suspend fun getSymbols(): Response<SymbolsList> = networkService.getSymbols()
 
+    override suspend fun getCurrenciesRates(base: String): Response<CurrenciesRates> =
+        networkService.getCurrenciesRates(base = base)
 }
 
 /*: BaseApiResponse() {

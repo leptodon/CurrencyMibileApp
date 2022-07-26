@@ -26,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.cactus.currency.NavigationItem
 import ru.cactus.currency.data.entity.Favorite
 import ru.cactus.currency.presentation.component.AppBar
+import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.presentation.theme.CurrencyTheme
 import ru.cactus.currency.presentation.theme.DarkGrey100
 
@@ -36,7 +37,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
             CurrencyTheme {
                 MainScreen(viewModel = mainViewModel)
@@ -47,19 +47,21 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(viewModel: MainViewModel) {
-    val symbols: Map<String, String> by viewModel.response.collectAsState(initial = emptyMap())
-    val currenciesRates: Map<String, String> by viewModel.ratesMap.collectAsState(initial = emptyMap())
-
+//    val symbols: Map<String, String> by viewModel.response.collectAsState(initial = emptyMap())
+//    val currenciesRates: Map<String, String> by viewModel.ratesMap.collectAsState(initial = emptyMap())
+    val uiState: StateUI by viewModel.viewModelState.collectAsState()
     val navController = rememberNavController()
     Scaffold(
         topBar = {
-            AppBar(symbols = symbols, viewModel = viewModel)
+//            AppBar(symbols = symbols, viewModel = viewModel)
+            AppBar(symbols = uiState.symbolsMap, viewModel = viewModel)
         },
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
     ) {
-        Navigation(navController, symbols, currenciesRates, viewModel)
+//        Navigation(navController, symbols, currenciesRates, viewModel)
+        Navigation(navController, uiState.symbolsMap, uiState.ratesMap, viewModel)
     }
 }
 
@@ -125,17 +127,20 @@ fun Navigation(
 ) {
     NavHost(navController, startDestination = NavigationItem.Home.route) {
         composable(NavigationItem.Home.route) {
-            HomeScreen(symbols, rates) { viewModel.addToFavorite(it) }
+            HomeScreen(symbols, rates) {
+                viewModel.addToFavorite(it)
+                viewModel.setBaseCurrency(it)
+            }
         }
 
         composable(NavigationItem.Favorite.route) {
-            val favorites: List<Favorite> by viewModel.favoritesList.collectAsState(initial = emptyList())
-            val currenciesRates: Map<String, String> by viewModel.ratesMap.collectAsState(
-                initial = emptyMap()
-            )
-
-            viewModel.getFavorites()
-            FavoriteScreen(symbols = favorites, rates = currenciesRates)
+//            val favorites: List<Favorite> by viewModel.favoritesList.collectAsState(initial = emptyList())
+//            val currenciesRates: Map<String, String> by viewModel.ratesMap.collectAsState(
+//                initial = emptyMap()
+//            )
+//
+//            viewModel.getFavorites()
+//            FavoriteScreen(symbols = favorites, rates = currenciesRates)
         }
     }
 }

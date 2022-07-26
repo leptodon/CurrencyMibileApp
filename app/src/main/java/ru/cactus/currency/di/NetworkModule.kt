@@ -34,7 +34,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(interceptor:Interceptor): OkHttpClient {
+    fun provideHttpClient(interceptor: Interceptor): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = (HttpLoggingInterceptor.Level.BASIC)
 
@@ -72,5 +72,6 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideNetworkRepository(): NetworkRepository = NetworkRepositoryImpl()
+    fun provideNetworkRepository(networkService: NetworkService): NetworkRepository =
+        NetworkRepositoryImpl(networkService)
 }

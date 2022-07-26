@@ -81,8 +81,9 @@ fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel) {
                 list.forEachIndexed { index, s ->
                     DropdownMenuItem(onClick = {
                         selectedIndex = index
-                        viewModel.setCurrentCurrency(symbols.keys.elementAt(index))
-                        viewModel.fetchData()
+                        viewModel.setBaseCurrency(symbols.keys.elementAt(index))
+//                        viewModel.setCurrentCurrency(symbols.keys.elementAt(index))
+//                        viewModel.fetchData()
                         expanded = false
                     }) {
                         Text(text = s)
