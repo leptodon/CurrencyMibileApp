@@ -1,4 +1,4 @@
-package ru.cactus.currency.presentation.component
+package ru.cactus.currency.presentation.screens.commonComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

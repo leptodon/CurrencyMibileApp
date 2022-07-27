@@ -1,4 +1,4 @@
-package ru.cactus.currency.presentation.component
+package ru.cactus.currency.presentation.screens.commonComponents
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,13 +12,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ru.cactus.currency.R
 import ru.cactus.currency.presentation.screens.MainViewModel
 import ru.cactus.currency.presentation.theme.Dark
 import ru.cactus.currency.presentation.theme.DarkGrey100
 
 @Composable
-fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel) {
+fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewModel()) {
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(0) }
     val list = symbols.values.toList()

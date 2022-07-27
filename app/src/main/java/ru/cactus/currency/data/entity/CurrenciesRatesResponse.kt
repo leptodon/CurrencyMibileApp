@@ -1,6 +1,6 @@
 package ru.cactus.currency.data.entity
 
-data class CurrenciesRates(
+data class CurrenciesRatesResponse(
     val base: String,
     val date: String,
     val rates: Map<String, String>,

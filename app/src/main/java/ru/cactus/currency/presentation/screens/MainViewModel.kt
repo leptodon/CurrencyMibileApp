@@ -1,117 +1,71 @@
 package ru.cactus.currency.presentation.screens
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.cactus.currency.data.entity.CurrenciesRates
-import ru.cactus.currency.data.entity.Favorite
-import ru.cactus.currency.data.entity.SymbolsList
-import ru.cactus.currency.data.db.DatabaseRepositoryImpl
-import ru.cactus.currency.data.network.NetworkRepositoryImpl
-import ru.cactus.currency.domain.NetworkUseCases
+import ru.cactus.currency.domain.CurrencyUseCases
 import ru.cactus.currency.presentation.entity.StateUI
-import ru.cactus.currency.repository.NetworkRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val networkRepository: NetworkRepository,
-    private val dbRepository: DatabaseRepositoryImpl,
-    private val networkUseCases: NetworkUseCases,
+    private val currencyUseCases: CurrencyUseCases,
     application: Application
 ) : AndroidViewModel(application) {
 
-/*
-    private val _response: MutableSharedFlow<Map<String, String>> = MutableSharedFlow()
-    private val _ratesMap: MutableSharedFlow<Map<String, String>> = MutableSharedFlow()
-    private val _favoritesList: MutableSharedFlow<List<Favorite>> = MutableSharedFlow()
-*/
-
     private val _viewModelState: MutableStateFlow<StateUI> = MutableStateFlow(StateUI())
-    val viewModelState: StateFlow<StateUI>
-        get() = _viewModelState
+    val viewModelState: StateFlow<StateUI> = _viewModelState
 
-    fun setBaseCurrency(base: String) {
-        networkUseCases.setCurrency(base)
+    init {
         viewModelScope.launch {
-//            _viewModelState.update { it.copy(selectedCurrency = base) }
-            networkUseCases.stateUiData.collect{
-//                _viewModelState.update { it }
-                _viewModelState.emit(it)
+            currencyUseCases.setBaseCurrency("USD")
+            currencyUseCases.stateUiData.collect { state ->
+                Log.d("MainViewModel", "currencyUseCases.stateUiData.collect is complete")
+                _viewModelState.update {
+                    it.copy(
+                        selectedCurrency = state.selectedCurrency,
+                        symbolsMap = state.symbolsMap,
+                        ratesMap = state.ratesMap
+                    )
+                }
             }
         }
     }
 
-
-/*    val favoritesList: Flow<List<Favorite>> = _favoritesList
-        get() {
-            getFavorites()
-            fetchData()
-            return field
+    fun setBaseCurrency(base: String) {
+        viewModelScope.launch {
+            currencyUseCases.setBaseCurrency(base)
+            currencyUseCases.stateUiData.collect { state ->
+                Log.d("MainViewModel", "currencyUseCases.stateUiData.collect is complete")
+                _viewModelState.update {
+                    it.copy(
+                        selectedCurrency = state.selectedCurrency,
+                        symbolsMap = state.symbolsMap,
+                        ratesMap = state.ratesMap
+                    )
+                }
+            }
         }
+    }
 
-    val ratesMap: Flow<Map<String, String>> = _ratesMap
-    val response: Flow<Map<String, String>> = _response*/
-
-    var curCurrency: String = "USD"
-
-    private lateinit var symbols: SymbolsList
-    private lateinit var currenciesRates: CurrenciesRates
-
-//    init {
-//        getSymbols()
-//        getFavorites()
-//        fetchData()
-//    }
-
-//    private fun getSymbols() {
+//    fun addToFavorite(symbol: String) {
 //        viewModelScope.launch(Dispatchers.IO) {
-//            networkRepository.getSymbols().collect { result ->
-//                if (result.isSuccessful) {
-//                    result.body()?.let {
-//                        symbols = it
-////                        _response.emit(it.symbols)
-//                    }
-//                }
-//            }
+//            dbRepository.insertFavorite(
+//                Favorite(
+//                    symbol = symbol,
+////                    name = symbols.symbols[symbol] ?: ""
+//                )
+//            )
 //        }
 //    }
 //
-//    fun fetchData() {
-//        viewModelScope.launch {
-//            networkRepository.getCurrenciesRates(curCurrency).collect { result ->
-//                if (result.isSuccessful) {
-//                    result.body()?.let { value ->
-//                        currenciesRates =
-//                            value.copy(rates = value.rates.filter { it.key != curCurrency })
-////                        _ratesMap.emit(currenciesRates.rates)
-//                    }
-//                }
-//            }
+//    fun getFavorites() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            _favoritesList.emit(dbRepository.getAllFavorites())
 //        }
 //    }
 
-    fun addToFavorite(symbol: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            dbRepository.insertFavorite(
-                Favorite(
-                    symbol = symbol,
-                    name = symbols.symbols[symbol] ?: ""
-                )
-            )
-        }
-    }
-
-    fun getFavorites() {
-        viewModelScope.launch(Dispatchers.IO) {
-//            _favoritesList.emit(dbRepository.getAllFavorites())
-        }
-    }
-
-    fun setCurrentCurrency(currency: String) {
-        curCurrency = currency
-    }
 }

@@ -1,15 +1,14 @@
-package ru.cactus.currency.presentation.screens
+package ru.cactus.currency.presentation.screens.commonComponents
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import ru.cactus.currency.presentation.component.CurrencyCard
 
 @Composable
-internal fun HomeScreen(
+internal fun CurrencyList(
     symbols: Map<String, String>,
     rates: Map<String, String>,
     onItemClick: (String) -> Unit
-) {
+){
     if (rates.isNotEmpty()) {
         LazyColumn {
             symbols.forEach { (symbol, name) ->

@@ -1,9 +1,9 @@
-package ru.cactus.currency.presentation.screens
+package ru.cactus.currency.presentation.screens.favorite
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import ru.cactus.currency.data.entity.Favorite
-import ru.cactus.currency.presentation.component.CurrencyCard
+import ru.cactus.currency.presentation.screens.commonComponents.CurrencyCard
 
 @Composable
 fun FavoriteScreen(
