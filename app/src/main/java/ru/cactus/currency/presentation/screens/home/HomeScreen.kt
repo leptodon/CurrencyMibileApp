@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import ru.cactus.currency.presentation.screens.commonComponents.AppBar
 import ru.cactus.currency.presentation.entity.StateUI
@@ -14,10 +15,10 @@ import ru.cactus.currency.presentation.screens.commonComponents.BottomNavigation
 
 @Composable
 internal fun HomeScreen(
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(), navController: NavController
 ) {
     val uiState: StateUI by viewModel.viewModelState.collectAsState()
-    val navController = rememberNavController()
+//    val navController = rememberNavController()
 
     Scaffold(
         topBar = {
