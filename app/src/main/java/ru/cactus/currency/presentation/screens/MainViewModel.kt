@@ -1,12 +1,12 @@
 package ru.cactus.currency.presentation.screens
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.cactus.currency.data.entity.local.Favorite
 import ru.cactus.currency.domain.CurrencyUseCases
 import ru.cactus.currency.presentation.entity.StateUI
 import javax.inject.Inject
@@ -17,14 +17,19 @@ class MainViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
-    private val _viewModelState: MutableStateFlow<StateUI> = MutableStateFlow(StateUI())
-    val viewModelState: StateFlow<StateUI> = _viewModelState
+    private val _homeScreenState: MutableStateFlow<StateUI> = MutableStateFlow(StateUI())
+    val homeScreenState: StateFlow<StateUI> = _homeScreenState
+
+    private val _favoriteCurrencyList: MutableStateFlow<List<Favorite>> =
+        MutableStateFlow(emptyList())
+    val favoriteCurrencyList: StateFlow<List<Favorite>> = _favoriteCurrencyList
+
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             currencyUseCases.setBaseCurrency("USD")
             currencyUseCases.stateUiData.collect { state ->
-                _viewModelState.update {
+                _homeScreenState.update {
                     it.copy(
                         selectedCurrency = state.selectedCurrency,
                         symbolsMap = state.symbolsMap,
@@ -39,7 +44,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             currencyUseCases.setBaseCurrency(base)
             currencyUseCases.stateUiData.collect { state ->
-                _viewModelState.update {
+                _homeScreenState.update {
                     it.copy(
                         selectedCurrency = state.selectedCurrency,
                         symbolsMap = state.symbolsMap,
@@ -50,21 +55,31 @@ class MainViewModel @Inject constructor(
         }
     }
 
-//    fun addToFavorite(symbol: String) {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            dbRepository.insertFavorite(
-//                Favorite(
-//                    symbol = symbol,
-////                    name = symbols.symbols[symbol] ?: ""
-//                )
-//            )
-//        }
-//    }
-//
-//    fun getFavorites() {
-//        viewModelScope.launch(Dispatchers.IO) {
-//            _favoritesList.emit(dbRepository.getAllFavorites())
-//        }
-//    }
+    fun addToFavorite(symbol: String, currency: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            currencyUseCases.addFavorite(
+                Favorite(
+                    symbol = symbol,
+                    name = currency
+                )
+            )
+        }
+    }
+
+    fun getFavorites() {
+        viewModelScope.launch(Dispatchers.IO) {
+            _favoriteCurrencyList.emit(
+                currencyUseCases.getFavorite()
+            )
+        }
+    }
+
+    fun filterListByAlphabet(){
+
+    }
+
+    fun filterListByRates(){
+
+    }
 
 }

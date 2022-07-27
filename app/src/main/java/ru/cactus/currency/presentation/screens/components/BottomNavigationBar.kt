@@ -1,4 +1,4 @@
-package ru.cactus.currency.presentation.screens.commonComponents
+package ru.cactus.currency.presentation.screens.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape

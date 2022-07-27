@@ -1,4 +1,4 @@
-package ru.cactus.currency.presentation.screens.commonComponents
+package ru.cactus.currency.presentation.screens.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -25,7 +25,7 @@ internal fun CurrencyCard(
     currency: String = "United States Dollar",
     symbol: String = "USD",
     rate: String = "58.125",
-    onItemClick: (String) -> Unit
+    onItemClick: (String, String) -> Unit
 ) {
     Card(
         shape = RoundedCornerShape(14.dp),
@@ -66,7 +66,7 @@ internal fun CurrencyCard(
             )
 
             IconButton(
-                onClick = { onItemClick(symbol) }
+                onClick = { onItemClick(symbol, currency) }
             ) {
                 Icon(Icons.Outlined.Star, tint = Color.White, contentDescription = null)
             }

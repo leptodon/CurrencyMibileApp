@@ -9,10 +9,14 @@ import ru.cactus.currency.presentation.screens.MainViewModel
 
 @Composable
 internal fun HomeScreen(
-    viewModel: MainViewModel = hiltViewModel(),) {
-    val uiState: StateUI by viewModel.viewModelState.collectAsState()
+    viewModel: MainViewModel = hiltViewModel(),
+) {
+    val uiState: StateUI by viewModel.homeScreenState.collectAsState()
 
-        if (uiState.symbolsMap.isNotEmpty()) {
-            CurrencyList(symbols = uiState.symbolsMap, rates = uiState.ratesMap) {}
-        }
+    if (uiState.symbolsMap.isNotEmpty()) {
+        CurrencyList(
+            symbols = uiState.symbolsMap,
+            rates = uiState.ratesMap
+        ) { symbol, currency -> viewModel.addToFavorite(symbol, currency) }
+    }
 }

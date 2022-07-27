@@ -20,12 +20,6 @@ fun NavGraph(
         }
 
         composable(Screens.Favorite.route) {
-//            val favorites: List<Favorite> by viewModel.favoritesList.collectAsState(initial = emptyList())
-//            val currenciesRates: Map<String, String> by viewModel.ratesMap.collectAsState(
-//                initial = emptyMap()
-//            )
-//
-//            viewModel.getFavorites()
             FavoriteScreen()
         }
     }

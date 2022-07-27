@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import ru.cactus.currency.data.entity.local.Favorite
 import ru.cactus.currency.data.entity.local.Symbols
 import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.repository.DatabaseRepository
@@ -22,6 +23,7 @@ class CurrencyUseCases @Inject constructor(
 
     private val _stateUiData: MutableStateFlow<StateUI> = MutableStateFlow(StateUI())
     val stateUiData: StateFlow<StateUI> = _stateUiData
+
 
     private suspend fun getSymbols(baseCurrency: String) {
         Log.d("TAG", localRepository.isSymbolsExists().toString())
@@ -76,5 +78,11 @@ class CurrencyUseCases @Inject constructor(
         fetchData(base)
         getSymbols(base)
     }
+
+    suspend fun addFavorite(favorite: Favorite) {
+        localRepository.insertFavorite(favorite)
+    }
+
+    suspend fun getFavorite() = localRepository.getAllFavorites()
 
 }
