@@ -1,12 +1,7 @@
 package ru.cactus.currency.domain
 
 import android.util.Log
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import retrofit2.Response
-import ru.cactus.currency.data.entity.CurrenciesRatesResponse
-import ru.cactus.currency.data.entity.SymbolsResponse
 import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.repository.DatabaseRepository
 import ru.cactus.currency.repository.NetworkRepository
@@ -15,11 +10,9 @@ import javax.inject.Singleton
 
 @Singleton
 class CurrencyUseCases @Inject constructor(
+    private val localRepository: DatabaseRepository,
     private val networkRepository: NetworkRepository
 ) {
-
-//    private val localRepository: DatabaseRepository,
-
 
     private val _stateUiData: MutableStateFlow<StateUI> = MutableStateFlow(StateUI())
     val stateUiData: StateFlow<StateUI> = _stateUiData

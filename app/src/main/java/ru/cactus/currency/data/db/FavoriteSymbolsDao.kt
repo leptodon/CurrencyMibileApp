@@ -4,10 +4,10 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ru.cactus.currency.data.entity.Favorite
+import ru.cactus.currency.data.entity.local.Favorite
 
 @Dao
-interface FavoriteDao {
+interface FavoriteSymbolsDao {
 
     @Query("SELECT * FROM favorite")
     fun getAllFavorites(): List<Favorite>

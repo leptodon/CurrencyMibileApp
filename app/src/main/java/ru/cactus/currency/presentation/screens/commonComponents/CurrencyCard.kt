@@ -15,12 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.cactus.currency.R
-import ru.cactus.currency.presentation.theme.CurrencyTheme
-import ru.cactus.currency.presentation.theme.DarkAlt
+import ru.cactus.currency.ui.theme.DarkAlt
 
 @Composable
 internal fun CurrencyCard(

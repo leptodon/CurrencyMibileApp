@@ -1,4 +1,4 @@
-package ru.cactus.currency.presentation.theme
+package ru.cactus.currency.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

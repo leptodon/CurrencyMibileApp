@@ -6,11 +6,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import ru.cactus.currency.presentation.entity.StateUI
-import ru.cactus.currency.presentation.screens.MainViewModel
 import ru.cactus.currency.presentation.screens.commonComponents.AppBar
-import ru.cactus.currency.presentation.screens.commonComponents.BottomNavigationBar
+import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.presentation.screens.commonComponents.CurrencyList
+import ru.cactus.currency.presentation.screens.MainViewModel
+import ru.cactus.currency.presentation.screens.commonComponents.BottomNavigationBar
 
 @Composable
 internal fun HomeScreen(
@@ -26,10 +26,7 @@ internal fun HomeScreen(
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }
-    ) {
-        CurrencyList(
-            symbols = uiState.symbolsMap,
-            rates = uiState.ratesMap
-        ) { viewModel.setBaseCurrency(it) }
+    ){
+        CurrencyList(symbols = uiState.symbolsMap, rates = uiState.ratesMap){}
     }
 }

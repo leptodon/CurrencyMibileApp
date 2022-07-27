@@ -1,10 +1,10 @@
-package ru.cactus.currency.data.entity
+package ru.cactus.currency.data.entity.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Favorite(
+data class Symbols(
     @PrimaryKey
     val symbol: String,
     val name: String

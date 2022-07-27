@@ -1,4 +1,4 @@
-package ru.cactus.currency.data.entity
+package ru.cactus.currency.data.entity.network
 
 data class SymbolsResponse(
     val success: Boolean,

@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.cactus.currency.presentation.navigation.Screens
-import ru.cactus.currency.presentation.theme.DarkGrey100
+import ru.cactus.currency.ui.theme.DarkGrey100
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

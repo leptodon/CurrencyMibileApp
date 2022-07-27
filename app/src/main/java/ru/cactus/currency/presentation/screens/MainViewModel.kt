@@ -36,6 +36,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun setBaseCurrency(base: String) {
+        Log.d("MainViewModel", "set new base currency is $base")
         viewModelScope.launch {
             currencyUseCases.setBaseCurrency(base)
             currencyUseCases.stateUiData.collect { state ->

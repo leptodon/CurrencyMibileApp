@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.cactus.currency.R
 import ru.cactus.currency.presentation.screens.MainViewModel
-import ru.cactus.currency.presentation.theme.Dark
-import ru.cactus.currency.presentation.theme.DarkGrey100
+import ru.cactus.currency.ui.theme.Dark
+import ru.cactus.currency.ui.theme.DarkGrey100
 
 @Composable
 fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewModel()) {

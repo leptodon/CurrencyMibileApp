@@ -7,16 +7,24 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ru.cactus.currency.data.db.AllSymbolsDao
 import ru.cactus.currency.data.db.AppDatabase
-import ru.cactus.currency.data.db.FavoriteDao
+import ru.cactus.currency.data.db.DatabaseRepositoryImpl
+import ru.cactus.currency.data.db.FavoriteSymbolsDao
+import ru.cactus.currency.repository.DatabaseRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {
     @Provides
-    fun provideFavoriteDao(appDatabase: AppDatabase): FavoriteDao {
+    fun provideFavoriteDao(appDatabase: AppDatabase): FavoriteSymbolsDao {
         return appDatabase.favoriteDao()
+    }
+
+    @Provides
+    fun provideAllSymbolsDao(appDatabase: AppDatabase): AllSymbolsDao {
+        return appDatabase.allSymbolsDao()
     }
 
     @Provides
@@ -28,4 +36,12 @@ class DatabaseModule {
             "Currency"
         ).build()
     }
+
+    @Singleton
+    @Provides
+    fun provideLocalRepository(
+        favoriteSymbolsDao: FavoriteSymbolsDao,
+        allSymbolsDao: AllSymbolsDao
+    ): DatabaseRepository =
+        DatabaseRepositoryImpl(favoriteSymbolsDao, allSymbolsDao)
 }

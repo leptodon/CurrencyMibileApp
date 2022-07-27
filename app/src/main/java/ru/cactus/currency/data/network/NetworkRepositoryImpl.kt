@@ -2,8 +2,8 @@ package ru.cactus.currency.data.network
 
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import retrofit2.Response
-import ru.cactus.currency.data.entity.CurrenciesRatesResponse
-import ru.cactus.currency.data.entity.SymbolsResponse
+import ru.cactus.currency.data.entity.network.CurrenciesRatesResponse
+import ru.cactus.currency.data.entity.network.SymbolsResponse
 import ru.cactus.currency.repository.NetworkRepository
 import javax.inject.Inject
 

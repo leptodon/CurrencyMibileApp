@@ -2,22 +2,27 @@ package ru.cactus.currency.presentation.screens.favorite
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import ru.cactus.currency.data.entity.Favorite
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import ru.cactus.currency.presentation.entity.StateUI
+import ru.cactus.currency.presentation.screens.MainViewModel
 import ru.cactus.currency.presentation.screens.commonComponents.CurrencyCard
 
 @Composable
 fun FavoriteScreen(
-    symbols: List<Favorite>,
-    rates: Map<String, String>
+    viewModel: MainViewModel = hiltViewModel()
 ) {
-    if (rates.isNotEmpty()) {
+    val uiState: StateUI by viewModel.viewModelState.collectAsState()
+
+    if (uiState.symbolsMap.isNotEmpty()) {
         LazyColumn {
-            symbols.forEach { item ->
+            uiState.symbolsMap.forEach { item ->
                 item {
-                    rates[item.symbol]?.let {
+                    uiState.ratesMap[item.key]?.let {
                         CurrencyCard(
-                            currency = item.name,
-                            symbol = item.symbol,
+                            currency = item.value,
+                            symbol = item.key,
                             rate = it
                         )
                     }
