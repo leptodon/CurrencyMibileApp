@@ -16,7 +16,7 @@ fun NavGraph(
         startDestination = Screens.Home.route
     ) {
         composable(Screens.Home.route) {
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
 
         composable(Screens.Favorite.route) {

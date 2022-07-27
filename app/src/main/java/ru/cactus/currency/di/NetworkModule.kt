@@ -42,8 +42,8 @@ object NetworkModule {
             .Builder()
             .addInterceptor(interceptor)
             .addInterceptor(logging)
-            .readTimeout(15, TimeUnit.SECONDS)
-            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 

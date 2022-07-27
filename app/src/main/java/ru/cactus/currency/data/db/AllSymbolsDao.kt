@@ -8,9 +8,12 @@ import ru.cactus.currency.data.entity.local.Symbols
 
 @Dao
 interface AllSymbolsDao {
-    @Query("SELECT * FROM favorite")
+    @Query("SELECT * FROM symbols")
     fun getAllSymbols(): List<Symbols>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertSymbols(symbols: List<Symbols>)
+
+    @Query("SELECT EXISTS(SELECT * FROM symbols)")
+    fun isSymbolsExists(): Boolean
 }

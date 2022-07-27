@@ -1,7 +1,8 @@
-package ru.cactus.currency.presentation.screens.commonComponents
+package ru.cactus.currency.presentation.screens.home
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import ru.cactus.currency.presentation.screens.commonComponents.CurrencyCard
 
 @Composable
 internal fun CurrencyList(

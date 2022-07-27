@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.cactus.currency.presentation.navigation.NavGraph
+import ru.cactus.currency.presentation.screens.base.BaseScreen
 import ru.cactus.currency.ui.theme.CurrencyTheme
 
 
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CurrencyTheme {
                 navController = rememberNavController()
-                NavGraph(navController = navController)
+                BaseScreen(navController = navController)
             }
         }
     }

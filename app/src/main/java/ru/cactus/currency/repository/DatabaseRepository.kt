@@ -8,4 +8,5 @@ interface DatabaseRepository {
     suspend fun insertFavorite(favorite: Favorite)
     suspend fun getAllSymbols(): List<Symbols>
     suspend fun insertSymbols(symbols: List<Symbols>)
+    suspend fun isSymbolsExists():Boolean
 }

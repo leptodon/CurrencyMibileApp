@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.cactus.currency.domain.CurrencyUseCases
@@ -20,10 +21,9 @@ class MainViewModel @Inject constructor(
     val viewModelState: StateFlow<StateUI> = _viewModelState
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             currencyUseCases.setBaseCurrency("USD")
             currencyUseCases.stateUiData.collect { state ->
-                Log.d("MainViewModel", "currencyUseCases.stateUiData.collect is complete")
                 _viewModelState.update {
                     it.copy(
                         selectedCurrency = state.selectedCurrency,
@@ -36,11 +36,9 @@ class MainViewModel @Inject constructor(
     }
 
     fun setBaseCurrency(base: String) {
-        Log.d("MainViewModel", "set new base currency is $base")
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             currencyUseCases.setBaseCurrency(base)
             currencyUseCases.stateUiData.collect { state ->
-                Log.d("MainViewModel", "currencyUseCases.stateUiData.collect is complete")
                 _viewModelState.update {
                     it.copy(
                         selectedCurrency = state.selectedCurrency,

@@ -10,15 +10,20 @@ class DatabaseRepositoryImpl @Inject constructor(
     private val allSymbolsDao: AllSymbolsDao
 ) : DatabaseRepository {
 
-    override suspend fun getAllFavorites(): List<Favorite> = favoriteSymbolsDao.getAllFavorites()
+    override suspend fun getAllFavorites(): List<Favorite> = favoriteSymbolsDao
+        .getAllFavorites()
 
     override suspend fun insertFavorite(favorite: Favorite) {
         favoriteSymbolsDao.insertFavorite(favorite)
     }
 
-    override suspend fun getAllSymbols(): List<Symbols> = allSymbolsDao.getAllSymbols()
+    override suspend fun getAllSymbols(): List<Symbols> = allSymbolsDao
+        .getAllSymbols()
 
     override suspend fun insertSymbols(symbols: List<Symbols>) {
         allSymbolsDao.insertSymbols(symbols)
     }
+
+    override suspend fun isSymbolsExists(): Boolean = allSymbolsDao
+        .isSymbolsExists()
 }
