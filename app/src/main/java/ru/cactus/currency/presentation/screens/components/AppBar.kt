@@ -16,12 +16,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ru.cactus.currency.R
+import ru.cactus.currency.data.entity.local.Symbols
 import ru.cactus.currency.presentation.screens.MainViewModel
 import ru.cactus.currency.ui.theme.Dark
 import ru.cactus.currency.ui.theme.DarkGrey100
 
 @Composable
-fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewModel()) {
+fun AppBar(symbols:List<Symbols>, viewModel: MainViewModel = hiltViewModel()) {
     var expanded by remember { mutableStateOf(false) }
     var selectedIndex by remember { mutableStateOf(0) }
 
@@ -29,9 +30,8 @@ fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewMode
     val radioOptions = listOf("Filter by alphabet", "Filter by rate")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
-    val list = symbols.values.toList()
 
-    if (list.isNotEmpty()) {
+    if (symbols.isNotEmpty()) {
         Box(
             modifier = Modifier
                 .height(100.dp)
@@ -58,7 +58,7 @@ fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewMode
                     verticalAlignment = CenterVertically,
                 ) {
                     Text(
-                        list[selectedIndex],
+                        symbols[selectedIndex].name,
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 10.dp)
@@ -86,13 +86,13 @@ fun AppBar(symbols: Map<String, String>, viewModel: MainViewModel = hiltViewMode
                         DarkGrey100
                     )
             ) {
-                list.forEachIndexed { index, s ->
+                symbols.forEachIndexed { index, s ->
                     DropdownMenuItem(onClick = {
                         selectedIndex = index
-                        viewModel.setBaseCurrency(symbols.keys.elementAt(index))
+                        viewModel.setBaseCurrency(symbols[selectedIndex].symbol)
                         expanded = false
                     }) {
-                        Text(text = s)
+                        Text(text = s.name)
                     }
                 }
             }

@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class Symbols(
     @PrimaryKey
     val symbol: String,
-    val name: String
+    val name: String,
+    val isFavorite: Boolean = false
 )

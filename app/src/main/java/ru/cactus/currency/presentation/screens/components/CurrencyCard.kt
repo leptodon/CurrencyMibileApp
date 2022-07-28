@@ -25,6 +25,7 @@ internal fun CurrencyCard(
     currency: String = "United States Dollar",
     symbol: String = "USD",
     rate: String = "58.125",
+    isFavorite: Boolean = false,
     onItemClick: (String, String) -> Unit
 ) {
     Card(
@@ -66,9 +67,13 @@ internal fun CurrencyCard(
             )
 
             IconButton(
-                onClick = { onItemClick(symbol, currency) }
+                onClick = { onItemClick(symbol, currency) },
             ) {
-                Icon(Icons.Outlined.Star, tint = Color.White, contentDescription = null)
+                Icon(
+                    Icons.Outlined.Star,
+                    tint = if (isFavorite) Color.Yellow else Color.White,
+                    contentDescription = null
+                )
             }
 
         }

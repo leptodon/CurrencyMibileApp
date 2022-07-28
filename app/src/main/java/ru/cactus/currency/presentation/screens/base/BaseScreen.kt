@@ -13,14 +13,14 @@ import ru.cactus.currency.presentation.screens.components.AppBar
 import ru.cactus.currency.presentation.screens.components.BottomNavigationBar
 
 @Composable
-internal fun BaseScreen(
+fun BaseScreen(
     viewModel: MainViewModel = hiltViewModel(), navController: NavHostController
 ) {
     val uiState: StateUI by viewModel.homeScreenState.collectAsState()
-
+    viewModel.getSymbols()
     Scaffold(
         topBar = {
-            AppBar(symbols = uiState.symbolsMap)
+            AppBar(symbols = uiState.symbolsList)
         },
         bottomBar = {
             BottomNavigationBar(navController = navController)
