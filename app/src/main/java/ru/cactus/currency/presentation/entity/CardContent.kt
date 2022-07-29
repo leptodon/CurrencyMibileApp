@@ -4,6 +4,6 @@ data class CardContent(
     val symbol: String = "",
     val currencyName: String = "",
     val rate: String = "",
-    val countryImg: String = "",
+    val currencySymbolImg: String = "",
     val isFavorite: Boolean = false
 )

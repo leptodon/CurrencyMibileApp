@@ -1,15 +1,15 @@
 package ru.cactus.currency.presentation.screens
 
 import android.app.Application
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.cactus.currency.data.entity.local.Symbols
 import ru.cactus.currency.domain.CurrencyUseCases
-import ru.cactus.currency.presentation.entity.CardContent
 import ru.cactus.currency.presentation.entity.StateUI
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class MainViewModel @Inject constructor(
 
     fun getSymbols() = scope.launch {
         currencyUseCases.getSymbols()
-        currencyUseCases.getRates("USD")
+        currencyUseCases.getRates("AED")
     }
 
     fun addToFavorite(symbol: String, currency: String) {
@@ -43,7 +43,6 @@ class MainViewModel @Inject constructor(
         scope.launch {
             currencyUseCases.updateContent(true)
         }
-
     }
 
     fun favoriteContent() {
@@ -54,6 +53,14 @@ class MainViewModel @Inject constructor(
 
     fun setBaseCurrency(symbols: String) {
         currencyUseCases.setCurrency(symbols)
+    }
+
+    fun filterByRate(text:String){
+        if (text == "Filter by rate") {
+            currencyUseCases.filter(false)
+        } else if ( text == "Filter by alphabet"){
+            currencyUseCases.filter(true)
+        }
     }
 
 }

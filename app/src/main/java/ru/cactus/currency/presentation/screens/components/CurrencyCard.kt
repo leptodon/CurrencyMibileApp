@@ -1,6 +1,6 @@
 package ru.cactus.currency.presentation.screens.components
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -11,20 +11,23 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ru.cactus.currency.R
 import ru.cactus.currency.ui.theme.DarkAlt
+import ru.cactus.currency.ui.theme.DarkGrey100
 
 @Composable
 internal fun CurrencyCard(
     currency: String = "United States Dollar",
     symbol: String = "USD",
     rate: String = "58.125",
+    img: String = "",
     isFavorite: Boolean = false,
     onItemClick: (String, String) -> Unit
 ) {
@@ -33,20 +36,30 @@ internal fun CurrencyCard(
         backgroundColor = DarkAlt,
         modifier = Modifier
             .padding(10.dp)
-            .wrapContentHeight(Alignment.CenterVertically)
+            .wrapContentHeight(CenterVertically)
             .fillMaxWidth()
     ) {
         Row(
             modifier = Modifier.padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = CenterVertically
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
-                contentDescription = "Contact profile picture",
+            Column(
                 modifier = Modifier
-                    .size(40.dp)
                     .clip(RoundedCornerShape(10.dp))
-            )
+                    .size(40.dp)
+                    .background(
+                        DarkGrey100
+                    ),
+                verticalArrangement = Arrangement.Center,
+            ){
+                Text(
+                    text = img,
+                    fontSize = 14.sp,
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.align(CenterHorizontally)
+                )
+            }
 
             Column(
                 modifier = Modifier
@@ -85,26 +98,38 @@ internal fun CurrencyCard(
     currency: String = "United States Dollar",
     symbol: String = "USD",
     rate: String = "58.125",
+    img: String = ""
 ) {
     Card(
         shape = RoundedCornerShape(14.dp),
         backgroundColor = DarkAlt,
         modifier = Modifier
             .padding(10.dp)
-            .wrapContentHeight(Alignment.CenterVertically)
+            .wrapContentHeight(CenterVertically)
             .fillMaxWidth()
     ) {
         Row(
             modifier = Modifier.padding(10.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = CenterVertically
         ) {
-            Image(
-                painter = painterResource(R.drawable.ic_launcher_background),
-                contentDescription = "Contact profile picture",
+
+            Column(
                 modifier = Modifier
-                    .size(40.dp)
                     .clip(RoundedCornerShape(10.dp))
-            )
+                    .size(40.dp)
+                    .background(
+                        DarkGrey100
+                    ),
+                verticalArrangement = Arrangement.Center,
+            ){
+                Text(
+                    text = img,
+                    fontSize = 14.sp,
+                    color = Color.White,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.align(CenterHorizontally)
+                )
+            }
 
             Column(
                 modifier = Modifier

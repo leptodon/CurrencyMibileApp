@@ -30,7 +30,6 @@ fun AppBar(symbols:List<Symbols>, viewModel: MainViewModel = hiltViewModel()) {
     val radioOptions = listOf("Filter by alphabet", "Filter by rate")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
-
     if (symbols.isNotEmpty()) {
         Box(
             modifier = Modifier
@@ -120,8 +119,9 @@ fun AppBar(symbols:List<Symbols>, viewModel: MainViewModel = hiltViewModel()) {
                                     .selectable(
                                         selected = (text == selectedOption),
                                         onClick = {
-                                            filterExpended = false
                                             onOptionSelected(text)
+                                            viewModel.filterByRate(text)
+                                            filterExpended = false
                                         },
                                     )
                                     .padding(horizontal = 16.dp),
@@ -131,8 +131,9 @@ fun AppBar(symbols:List<Symbols>, viewModel: MainViewModel = hiltViewModel()) {
                                     selected = (text == selectedOption),
                                     modifier = Modifier.padding(8.dp),
                                     onClick = {
-                                        filterExpended = false
                                         onOptionSelected(text)
+                                        viewModel.filterByRate(text)
+                                        filterExpended = false
                                     }
                                 )
                                 Text(

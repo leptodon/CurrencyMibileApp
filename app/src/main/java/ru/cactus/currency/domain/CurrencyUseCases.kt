@@ -10,6 +10,8 @@ import ru.cactus.currency.presentation.entity.CardContent
 import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.repository.DatabaseRepository
 import ru.cactus.currency.repository.NetworkRepository
+import ru.cactus.currency.utils.toCorrectFloat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -72,6 +74,7 @@ class CurrencyUseCases @Inject constructor(
 
     suspend fun updateContent(isHomeContentList: Boolean) {
         val list = mutableListOf(CardContent())
+
         if (isHomeContentList) {
             list.clear()
             stateUiData.value.symbolsList.forEach { (symbol, name) ->
@@ -79,8 +82,9 @@ class CurrencyUseCases @Inject constructor(
                     CardContent(
                         symbol = symbol,
                         currencyName = name,
-                        rate = stateUiData.value.ratesMap[symbol].toString(),
-                        isFavorite = localRepository.isFavoriteSymbol(symbol)
+                        rate = stateUiData.value.ratesMap[symbol] ?: "0.0",
+                        isFavorite = localRepository.isFavoriteSymbol(symbol),
+                        currencySymbolImg = Currency.getInstance(symbol).getSymbol(Locale.US)
                     )
                 )
             }
@@ -92,7 +96,8 @@ class CurrencyUseCases @Inject constructor(
                     CardContent(
                         symbol = symbol,
                         currencyName = name,
-                        rate = stateUiData.value.ratesMap[symbol].toString()
+                        rate = stateUiData.value.ratesMap[symbol] ?: "0.0",
+                        currencySymbolImg = Currency.getInstance(symbol).getSymbol(Locale.US)
                     )
                 )
             }
@@ -113,4 +118,20 @@ class CurrencyUseCases @Inject constructor(
         }
     }
 
+    fun filter(isAlphabet: Boolean) {
+        if (isAlphabet) {
+            _stateUiData.update {
+                it.copy(contentList = it.contentList.sortedBy { s -> s.symbol },
+                    contentFavoriteList = it.contentFavoriteList.sortedBy { v -> v.symbol })
+            }
+        } else {
+            _stateUiData.update { state ->
+                state.copy(
+                    contentList = state.contentList.sortedBy {
+                        it.rate.toCorrectFloat()
+                    },
+                    contentFavoriteList = state.contentFavoriteList.sortedBy { it.rate.toCorrectFloat() })
+            }
+        }
+    }
 }
