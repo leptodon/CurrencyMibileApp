@@ -1,10 +1,14 @@
 package ru.cactus.currency.presentation.screens.base
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -25,8 +29,12 @@ fun BaseScreen(
     val currentRoute = navBackStackEntry?.destination?.route
 
     when (currentRoute.toString()) {
-        "home" -> { viewModel.homeContent() }
-        "favorite" -> { viewModel.favoriteContent() }
+        "home" -> {
+            viewModel.homeContent()
+        }
+        "favorite" -> {
+            viewModel.favoriteContent()
+        }
     }
 
     Scaffold(scaffoldState = scaffoldState,
@@ -37,6 +45,13 @@ fun BaseScreen(
             BottomNavigationBar(navController = navController)
         }
     ) {
-        NavGraph(navController = navController)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        )
+        {
+            NavGraph(navController = navController)
+        }
     }
 }

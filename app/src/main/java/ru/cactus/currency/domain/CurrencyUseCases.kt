@@ -11,6 +11,7 @@ import ru.cactus.currency.presentation.entity.StateUI
 import ru.cactus.currency.repository.DatabaseRepository
 import ru.cactus.currency.repository.NetworkRepository
 import ru.cactus.currency.utils.toCorrectFloat
+import ru.cactus.currency.utils.toImgSymbol
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -84,7 +85,7 @@ class CurrencyUseCases @Inject constructor(
                         currencyName = name,
                         rate = stateUiData.value.ratesMap[symbol] ?: "0.0",
                         isFavorite = localRepository.isFavoriteSymbol(symbol),
-                        currencySymbolImg = Currency.getInstance(symbol).getSymbol(Locale.US)
+                        currencySymbolImg = symbol.toImgSymbol()
                     )
                 )
             }
@@ -97,7 +98,7 @@ class CurrencyUseCases @Inject constructor(
                         symbol = symbol,
                         currencyName = name,
                         rate = stateUiData.value.ratesMap[symbol] ?: "0.0",
-                        currencySymbolImg = Currency.getInstance(symbol).getSymbol(Locale.US)
+                        currencySymbolImg = symbol.toImgSymbol()
                     )
                 )
             }

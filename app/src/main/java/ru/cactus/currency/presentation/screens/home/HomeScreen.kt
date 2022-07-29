@@ -2,6 +2,7 @@ package ru.cactus.currency.presentation.screens.home
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,6 +16,9 @@ fun HomeScreen(
 ) {
     val uiState: StateUI by viewModel.homeScreenState.collectAsState()
 
+    LaunchedEffect(key1 = true){
+        viewModel.homeContent()
+    }
     if (uiState.contentList.isNotEmpty()) {
         LazyColumn {
             uiState.contentList.forEach { item ->

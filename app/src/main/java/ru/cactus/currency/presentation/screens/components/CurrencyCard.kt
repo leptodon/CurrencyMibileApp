@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -21,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.cactus.currency.ui.theme.DarkAlt
 import ru.cactus.currency.ui.theme.DarkGrey100
+import ru.cactus.currency.ui.theme.LightGrey100
 
 @Composable
 internal fun CurrencyCard(
@@ -67,9 +67,9 @@ internal fun CurrencyCard(
                     .padding(start = 10.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = currency, color = Color.White, fontSize = 12.sp)
+                Text(text = currency, color = Color.White, fontSize = 14.sp)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = symbol, color = Color.White, fontSize = 10.sp)
+                Text(text = symbol, color = LightGrey100, fontSize = 10.sp)
             }
 
             Text(
@@ -137,9 +137,9 @@ internal fun CurrencyCard(
                     .padding(start = 10.dp),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = currency, color = Color.White, fontSize = 12.sp)
+                Text(text = currency, color = Color.White, fontSize = 14.sp)
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = symbol, color = Color.White, fontSize = 10.sp)
+                Text(text = symbol, color = LightGrey100, fontSize = 10.sp)
             }
 
             Text(
