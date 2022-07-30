@@ -29,7 +29,7 @@ fun HomeScreen(
                         rate = uiState.ratesMap[item.symbol]?:"0.0",
                         isFavorite = item.isFavorite,
                         img = item.currencySymbolImg
-                    ) { symbol, currency -> viewModel.addToFavorite(symbol, currency) }
+                    ) { symbol, currency -> viewModel.changeFavoriteStatus(symbol, currency) }
                 }
             }
         }

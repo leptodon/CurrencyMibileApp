@@ -27,13 +27,12 @@ class MainViewModel @Inject constructor(
         currencyUseCases.getRates("AED")
     }
 
-    fun addToFavorite(symbol: String, currency: String) {
+    fun changeFavoriteStatus(symbol: String, currency: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            currencyUseCases.addFavorite(
+            currencyUseCases.changeFavorite(
                 Symbols(
                     symbol = symbol,
-                    name = currency,
-                    isFavorite = true
+                    name = currency
                 )
             )
         }

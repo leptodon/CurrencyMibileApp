@@ -18,7 +18,7 @@ class DatabaseRepositoryImpl @Inject constructor(
     override suspend fun isSymbolsExists(): Boolean = allSymbolsDao
         .isSymbolsExists()
 
-    override suspend fun addToFavorite(symbols: Symbols) = allSymbolsDao.addToFavorite(symbols)
+    override suspend fun changeFavoriteStatus(symbols: Symbols) = allSymbolsDao.changeFavoriteStatus(symbols)
     override suspend fun getAllFavorites(): List<Symbols> = allSymbolsDao
         .getAllFavorites()
 

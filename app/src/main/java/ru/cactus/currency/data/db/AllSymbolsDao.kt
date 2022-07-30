@@ -15,7 +15,7 @@ interface AllSymbolsDao {
     fun isSymbolsExists(): Boolean
 
     @Update
-    fun addToFavorite(symbols: Symbols)
+    fun changeFavoriteStatus(symbols: Symbols)
 
     @Query("SELECT isFavorite FROM Symbols WHERE symbol=:name")
     fun isFavoriteSymbol(name: String):Boolean

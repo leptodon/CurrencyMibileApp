@@ -1,5 +1,6 @@
 package ru.cactus.currency.domain
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -12,7 +13,6 @@ import ru.cactus.currency.repository.DatabaseRepository
 import ru.cactus.currency.repository.NetworkRepository
 import ru.cactus.currency.utils.toCorrectFloat
 import ru.cactus.currency.utils.toImgSymbol
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,7 +32,7 @@ class CurrencyUseCases @Inject constructor(
                 with(localRepository.getAllSymbols()) {
                     _stateUiData.update { state ->
                         state.copy(
-                            symbolsList = this,
+                            symbolsList = this.sortedBy { it.name },
                             symbolsMap = this.associate { it.symbol to it.name }
                         )
                     }
@@ -48,7 +48,7 @@ class CurrencyUseCases @Inject constructor(
                                             symbol = symbol,
                                             name = name
                                         )
-                                    }.toList(),
+                                    }.sortedBy { sort -> sort.name },
                                     symbolsMap = data.symbols
                                 )
                             }
@@ -106,10 +106,18 @@ class CurrencyUseCases @Inject constructor(
         }
     }
 
-    suspend fun addFavorite(symbols: Symbols) {
-        localRepository.addToFavorite(
-            symbols
-        )
+    suspend fun changeFavorite(symbols: Symbols) {
+        val isFavorite = localRepository.isFavoriteSymbol(symbols.symbol)
+        Log.d("TAG", isFavorite.toString())
+        if (isFavorite) {
+            localRepository.changeFavoriteStatus(
+                symbols.copy(isFavorite = false)
+            )
+        } else {
+            localRepository.changeFavoriteStatus(
+                symbols.copy(isFavorite = true)
+            )
+        }
         updateContent(true)
     }
 
