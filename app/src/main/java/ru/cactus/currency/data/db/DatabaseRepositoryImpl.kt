@@ -1,7 +1,7 @@
 package ru.cactus.currency.data.db
 
 import ru.cactus.currency.data.entity.local.Symbols
-import ru.cactus.currency.repository.DatabaseRepository
+import ru.cactus.currency.domain.repository.DatabaseRepository
 import javax.inject.Inject
 
 class DatabaseRepositoryImpl @Inject constructor(

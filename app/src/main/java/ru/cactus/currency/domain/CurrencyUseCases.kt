@@ -9,8 +9,8 @@ import kotlinx.coroutines.launch
 import ru.cactus.currency.data.entity.local.Symbols
 import ru.cactus.currency.presentation.entity.CardContent
 import ru.cactus.currency.presentation.entity.StateUI
-import ru.cactus.currency.repository.DatabaseRepository
-import ru.cactus.currency.repository.NetworkRepository
+import ru.cactus.currency.domain.repository.DatabaseRepository
+import ru.cactus.currency.domain.repository.NetworkRepository
 import ru.cactus.currency.utils.toCorrectFloat
 import ru.cactus.currency.utils.toImgSymbol
 import javax.inject.Inject

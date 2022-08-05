@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import ru.cactus.currency.Constants
 import ru.cactus.currency.data.network.NetworkRepositoryImpl
 import ru.cactus.currency.data.network.NetworkService
-import ru.cactus.currency.repository.NetworkRepository
+import ru.cactus.currency.domain.repository.NetworkRepository
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 

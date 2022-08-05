@@ -4,7 +4,7 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import retrofit2.Response
 import ru.cactus.currency.data.entity.network.CurrenciesRatesResponse
 import ru.cactus.currency.data.entity.network.SymbolsResponse
-import ru.cactus.currency.repository.NetworkRepository
+import ru.cactus.currency.domain.repository.NetworkRepository
 import javax.inject.Inject
 
 @ActivityRetainedScoped

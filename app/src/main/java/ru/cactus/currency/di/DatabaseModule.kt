@@ -10,7 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import ru.cactus.currency.data.db.AllSymbolsDao
 import ru.cactus.currency.data.db.AppDatabase
 import ru.cactus.currency.data.db.DatabaseRepositoryImpl
-import ru.cactus.currency.repository.DatabaseRepository
+import ru.cactus.currency.domain.repository.DatabaseRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)

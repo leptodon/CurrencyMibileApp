@@ -1,4 +1,4 @@
-package ru.cactus.currency.repository
+package ru.cactus.currency.domain.repository
 
 import retrofit2.Response
 import ru.cactus.currency.data.entity.network.CurrenciesRatesResponse
