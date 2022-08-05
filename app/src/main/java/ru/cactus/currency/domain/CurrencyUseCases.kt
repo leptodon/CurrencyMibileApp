@@ -108,7 +108,6 @@ class CurrencyUseCases @Inject constructor(
 
     suspend fun changeFavorite(symbols: Symbols) {
         val isFavorite = localRepository.isFavoriteSymbol(symbols.symbol)
-        Log.d("TAG", isFavorite.toString())
         if (isFavorite) {
             localRepository.changeFavoriteStatus(
                 symbols.copy(isFavorite = false)
